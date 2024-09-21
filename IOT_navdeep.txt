@@ -1,0 +1,69 @@
+//Hi myself Navdeep and to run this code I used a website called tinkercard and to use this code simple copy paste it in the code block+text on tinkercard.
+
+// First we will define pin number
+const int redPin = 4;
+const int greenPin = 5;
+const int bluePin = 6;
+const int buttonPin = 2;
+
+// Variable to store the current state
+int buttonState = 1;
+int lastButtonState = 1;
+int ledState = 0; 
+// 0 for Red, 1 for Green, 2 for Blue
+
+void setup() {
+    // Set the LED pins as outputs
+    pinMode(redPin, OUTPUT);
+    pinMode(greenPin, OUTPUT);
+    pinMode(bluePin, OUTPUT);
+    
+    // Set the button pin as input
+    pinMode(buttonPin, INPUT);
+    
+    // Initially turn on the Red LED and turn off the others
+    digitalWrite(redPin, HIGH);
+    digitalWrite(greenPin, LOW);
+    digitalWrite(bluePin, LOW);
+}
+
+void loop() {
+    // Read the state of the push button
+    buttonState = digitalRead(buttonPin);
+
+    // Check if the button has been pressed (state change from LOW to HIGH)
+    if (buttonState == HIGH && lastButtonState == LOW) {
+        // Cycle through LED states
+        ledState++;
+        if (ledState > 2) {
+            ledState = 0; // Reset the state after Blue
+        }
+
+        // Change the LED color based on the ledState
+        if (ledState == 0) {
+            // Red ON, others OFF
+            digitalWrite(redPin, HIGH);
+            digitalWrite(greenPin, LOW);
+            digitalWrite(bluePin, LOW);}
+      else if (ledState == 1) {
+            // Green ON, others OFF
+            digitalWrite(redPin, LOW);
+            digitalWrite(greenPin, HIGH);
+            digitalWrite(bluePin, LOW);}
+      else if (ledState == 2) {
+            // Blue ON, others OFF
+            digitalWrite(redPin, LOW);
+            digitalWrite(greenPin, LOW);
+            digitalWrite(bluePin, HIGH);}
+      
+        // Wait for a short period to ensure the LED state is visible
+        delay(500);
+    }
+
+    // Save the current button state for comparison in the next iteration
+    lastButtonState = buttonState;
+
+    // Small delay to debounce the button press
+    delay(50);
+}
+//thank you
